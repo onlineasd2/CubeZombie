@@ -100,7 +100,7 @@ public class PersonController : MonoBehaviour {
 
         t += Time.deltaTime; //запускаем таймер
 
-        if (t > delay) //если больше задержки в секундах
+        if (t > delay) //если время больше задержки в секундах
         {
             t = 0; //обнуляем, и как следствие, делаем выстрел
         }
