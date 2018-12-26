@@ -6,15 +6,17 @@ public class EnemyCreator : MonoBehaviour {
 
     public int countEnemy;
     public GameObject [] kindsEnemy;
+    public int Waves;
     
 	void Start () {
     }
 
     void Update ()
     {
-        if (!IsInvoking("CreateEnemy"))
+        if (Waves != 0)
         {
             Invoke("CreateEnemy", 1); //выполняем sec каждые 5 секунд
+            Waves--;
         }
     }
 

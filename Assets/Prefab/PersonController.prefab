@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 65213768602909476}
   - component: {fileID: 54625794457627138}
   - component: {fileID: 114914468149273428}
+  - component: {fileID: 95554411962141744}
   m_Layer: 0
   m_Name: PersonController
   m_TagString: Untagged
@@ -103,7 +104,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1048621462726542}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -2.47, y: 0.2, z: -14}
+  m_LocalPosition: {x: -2.47, y: 0.1, z: -14}
   m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_Children:
   - {fileID: 4807628030891656}
@@ -117,8 +118,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1663048589291048}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.552, y: 0.035, z: 1.023}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0, y: 0.034999996, z: 1.0200001}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4246065560326438}
@@ -330,6 +331,24 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 0.2, z: 0.05}
   m_Center: {x: 0, y: -0.03, z: 0}
+--- !u!95 &95554411962141744
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1048621462726542}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 4c4f9ef3f12e86144b8f71bbfb5690c5, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &114914468149273428
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -345,7 +364,8 @@ MonoBehaviour:
   weapon: {fileID: 1275618900377988}
   bullet: {fileID: 1727089234967874, guid: c74c8419ee461ea4ab8223b2569763a9, type: 2}
   target: {fileID: 4339413292609944, guid: 34b46d557e8bb244b8ddacf1edbd86ee, type: 2}
-  weaponEnd: {fileID: 0}
+  weaponEnd: {fileID: 4313234653471536}
+  animator: {fileID: 0}
   storeCapacity: 30
-  speedBulet: 0
-  delayShoting: 20
+  speedBulet: 1000
+  delayShoting: 0.1
