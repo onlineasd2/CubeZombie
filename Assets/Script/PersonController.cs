@@ -42,7 +42,6 @@ public class PersonController : MonoBehaviour {
         if ((storeCapacity < 30) && (Input.GetKeyDown(KeyCode.R)) && (!IsAnimationPlaying("ReloadAmmo")))
         {
             animator.SetBool("ReloadAmmo", true);
-            storeCapacity = 30;
             Debug.Log("Reload Ammo");
         }
     }
@@ -55,7 +54,7 @@ public class PersonController : MonoBehaviour {
         {
             CursorDirection(); // Get position and transform target to position
 
-            transform.LookAt(target); //PersonController look at target
+            transform.LookAt(target); // PersonController look at target
 
             transform.rotation = Quaternion.RotateTowards(transform.rotation, target.rotation, Time.deltaTime);
 
@@ -81,7 +80,7 @@ public class PersonController : MonoBehaviour {
             target.position = hit.point;
 
             // Debug postition hit point
-            //Debug.Log(objectHit.position);
+            // Debug.Log(objectHit.position);
 
             return target.transform.position;
 
@@ -125,10 +124,11 @@ public class PersonController : MonoBehaviour {
         }
     }
 
-    // Закончить любую анимацию
+    // Закончить анимацию перезарядки
     void AnimationOver (string nameAnimation)
     {
         animator.SetBool(nameAnimation, false);
+        storeCapacity = 30;
     }
 
     // Проверка проигрывания анимации
