@@ -16,6 +16,10 @@ public class PersonController : MonoBehaviour {
     public Animator animator;
     [Space]
 
+    bool isShot;
+
+    public Light LightFormAmmo;
+
     public int storeCapacity = 30; // Емкость магазина
 
     public float speedBulet = 10; // Скорость пули
@@ -34,6 +38,7 @@ public class PersonController : MonoBehaviour {
     {
         DirectionShot();
         ReloadGun();
+        CheckIsShot();
     }
 
     void ReloadGun() // Перезарядка
@@ -59,6 +64,8 @@ public class PersonController : MonoBehaviour {
             transform.rotation = Quaternion.RotateTowards(transform.rotation, target.rotation, Time.deltaTime);
 
             DelayShoot(delayShoting);
+
+            Debug.Log(isShot);
         }
         else
         {
@@ -89,7 +96,7 @@ public class PersonController : MonoBehaviour {
     }
 
 
-    void Shot ()
+    bool Shot ()
     {
         // Если магазин не пуст и если не проигрывается анимация перезарядки
         if ((storeCapacity != 0) && (!IsAnimationPlaying("ReloadAmmo")))
@@ -98,23 +105,39 @@ public class PersonController : MonoBehaviour {
 
             copyBullet.GetComponent<Rigidbody>().AddForce(weaponEnd.forward * speedBulet * Time.deltaTime, ForceMode.Impulse);
 
+            if (copyBullet != null)
+            {
+                isShot = true;
+            }
+            else
+            {
+                isShot = false;
+            }
+
             storeCapacity--; // Минус один патрон за каждый выстрел
 
             Destroy(copyBullet, 1); // Удаление пуль через одну секунду
 
+
+            return true;
         }
         // Если кончились патроны
         else
         {
             t = 0; // обнуление таймера
             Debug.Log("Need Ammo");
+            return false;
         }
     }
 
+
     void DelayShoot(float delay)
     {
-        if (t == 0) //если таймер на 0, делаем выстрел
+        //если таймер на 0, делаем выстрел
+        if (t == 0)
+        {
             Shot();
+        }
 
         t += Time.deltaTime; //запускаем таймер
 
@@ -122,13 +145,14 @@ public class PersonController : MonoBehaviour {
         {
             t = 0; //обнуляем, и как следствие, делаем выстрел
         }
+
     }
 
     // Закончить анимацию перезарядки
     void AnimationOver (string nameAnimation)
     {
         animator.SetBool(nameAnimation, false);
-        storeCapacity = 30;
+        storeCapacity = 30; // Присвоить 30 патронов
     }
 
     // Проверка проигрывания анимации
@@ -141,5 +165,30 @@ public class PersonController : MonoBehaviour {
             return true;
 
         return false;
+    }
+
+    // Проверка каждый кадр был ли выстрел
+    void CheckIsShot()
+    {
+        if (isShot)
+        {
+            LightShot(true);
+            isShot = false;
+        } else
+        {
+            LightShot(false);
+        }
+    }
+
+    // Вспышка от выстрела
+    void LightShot (bool shot)
+    {
+        LightFormAmmo.gameObject.SetActive(shot);
+    }
+
+    // Вспышка от выстрела
+    void LightFromShoot (bool turn)
+    {
+        LightFormAmmo.gameObject.SetActive(turn);
     }
 }

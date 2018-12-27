@@ -10,6 +10,9 @@ public class Enemy : MonoBehaviour {
     public Transform player;
     public float forceJump;
     public float delayJump;
+    
+    public ParticleSystem particle;
+    [Space]
 
     public bool isGround;
 
@@ -18,8 +21,8 @@ public class Enemy : MonoBehaviour {
     bool playerIsAlive;
     
 	void Start () {
-		
-	}
+        particle.Stop();
+    }
 	
 	void Update () {
         EnemyControl(delayJump);
@@ -44,7 +47,7 @@ public class Enemy : MonoBehaviour {
         if (isGround)
         {
             transform.LookAt(player);
-            GetComponent<Rigidbody>().AddForce(new Vector3(transform.forward.x, transform.position.y * (forceJump * 2)), ForceMode.Impulse);
+            GetComponent<Rigidbody>().AddForce((transform.forward + Vector3.up) * forceJump, ForceMode.Impulse);
         }
     }
 
@@ -55,6 +58,17 @@ public class Enemy : MonoBehaviour {
         {
             Debug.Log("Enemy Dead");
             Destroy(gameObject);
+        }
+    }
+
+    private void OnCollisionEnter (Collision coll)
+    {
+        if (coll.gameObject.tag == "Ground")
+        {
+            particle.Play();
+        } else
+        {
+            particle.Stop();
         }
     }
 

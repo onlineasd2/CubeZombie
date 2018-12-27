@@ -409,6 +409,7 @@
     <None Include="Assets\Aura\Shaders\Shaders\StorePointLightShadowMap.shader" />
     <None Include="Assets\Aura\Shaders\Shaders\StoreShadowDataShader.shader" />
     <None Include="Assets\Aura\Shaders\Shaders\Surface\AuraStandardAlphaBlended.shader" />
+    <None Include="Assets\Shaders\NewSurfaceShader.shader" />
     <None Include="Packages\com.unity.package-manager-ui\Editor\Resources\Styles\Main_Dark.uss" />
     <None Include="Packages\com.unity.package-manager-ui\Editor\Resources\Styles\Main_Light.uss" />
     <None Include="Packages\com.unity.package-manager-ui\Editor\Resources\Templates\Alert.uxml" />
