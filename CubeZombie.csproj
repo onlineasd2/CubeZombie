@@ -368,6 +368,7 @@
     <Compile Include="Assets\Aura\Structs\VolumeLevelsData.cs" />
     <Compile Include="Assets\Aura\Structs\VolumeTextureData.cs" />
     <Compile Include="Assets\Script\Bullet.cs" />
+    <Compile Include="Assets\Script\CameraShake.cs" />
     <Compile Include="Assets\Script\Enemy.cs" />
     <Compile Include="Assets\Script\EnemyCreator.cs" />
     <Compile Include="Assets\Script\PersonController.cs" />

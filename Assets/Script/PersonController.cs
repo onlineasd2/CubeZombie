@@ -5,6 +5,7 @@ using UnityEngine;
 public class PersonController : MonoBehaviour {
     
     public Camera cam;
+    public CameraShake cameraShake;
     public GameObject weapon;
     public GameObject bullet; // Пуля
     [Space]
@@ -89,7 +90,7 @@ public class PersonController : MonoBehaviour {
 
         bool isHit = Physics.Raycast(ray, out hit);
 
-        if ((isHit) && !(hit.collider.tag == "Ground"))
+        if ((isHit) && (hit.collider.tag == "Enemy"))
         {
             Transform objectHit = hit.transform;
             target.position = hit.point;
@@ -115,6 +116,8 @@ public class PersonController : MonoBehaviour {
             
             AnimationShot(true);
 
+            StartCoroutine(cameraShake.Shake(.15f, .4f));
+
             if (copyBullet != null)
             {
                 isShot = true;
@@ -123,8 +126,6 @@ public class PersonController : MonoBehaviour {
             {
                 isShot = false;
             }
-
-            //AnimationShot(); shot
 
             storeCapacity--; // Минус один патрон за каждый выстрел
 
