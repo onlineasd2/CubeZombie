@@ -16,7 +16,10 @@ public class PersonController : MonoBehaviour {
     public Animator animator;
     [Space]
 
-    bool isShot;
+    public ParticleSystem sleeve;
+    [Space]
+
+    public bool isShot;
 
     public Light LightFormAmmo;
 
@@ -32,6 +35,8 @@ public class PersonController : MonoBehaviour {
     {
         Instantiate(target, transform.position, Quaternion.identity);
         animator = GetComponent<Animator>();
+
+        ParticleSleeve(false);
     }
 	
 	void Update ()
@@ -69,6 +74,9 @@ public class PersonController : MonoBehaviour {
         }
         else
         {
+
+            ParticleSleeve(false);
+            AnimationShot(false);
             t = 0; //при прекращении огня обнуляем таймер, но выстрела не следует, тк не нажата кнопка стрельбы
         }
     }
@@ -104,6 +112,8 @@ public class PersonController : MonoBehaviour {
             GameObject copyBullet = Instantiate(bullet, weaponEnd.position, Quaternion.identity); // Создание пули
 
             copyBullet.GetComponent<Rigidbody>().AddForce(weaponEnd.forward * speedBulet * Time.deltaTime, ForceMode.Impulse);
+            
+            AnimationShot(true);
 
             if (copyBullet != null)
             {
@@ -114,16 +124,20 @@ public class PersonController : MonoBehaviour {
                 isShot = false;
             }
 
+            //AnimationShot(); shot
+
             storeCapacity--; // Минус один патрон за каждый выстрел
 
-            Destroy(copyBullet, 1); // Удаление пуль через одну секунду
-
+            Destroy(copyBullet, 1); // Удаление пуль через одну секунд
 
             return true;
         }
         // Если кончились патроны
         else
         {
+            AnimationShot(false); // отключение анимации выстрела
+            ParticleSleeve(false); // отключение вылета гильз
+
             t = 0; // обнуление таймера
             Debug.Log("Need Ammo");
             return false;
@@ -149,10 +163,26 @@ public class PersonController : MonoBehaviour {
     }
 
     // Закончить анимацию перезарядки
-    void AnimationOver (string nameAnimation)
+    void AnimationOver(string nameAnimation)
     {
         animator.SetBool(nameAnimation, false);
         storeCapacity = 30; // Присвоить 30 патронов
+    }
+
+    void AnimationShot(bool turn)
+    {
+        if (isShot)
+            animator.SetBool("Shot", turn);
+        else
+            animator.SetBool("Shot", turn);
+    }
+
+    void ParticleSleeve (bool turn)
+    {
+        if (turn)
+            sleeve.Play();
+        else
+            sleeve.Stop();
     }
 
     // Проверка проигрывания анимации
@@ -173,6 +203,7 @@ public class PersonController : MonoBehaviour {
         if (isShot)
         {
             LightShot(true);
+            ParticleSleeve(true);
             isShot = false;
         } else
         {

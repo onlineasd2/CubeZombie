@@ -26,7 +26,7 @@ GameObject:
   - component: {fileID: 114664298488755568}
   - component: {fileID: 96164374489497472}
   - component: {fileID: 108889022899880904}
-  - component: {fileID: 114646884912626058}
+  - component: {fileID: 114431254959142164}
   m_Layer: 0
   m_Name: Bullet
   m_TagString: Bullet
@@ -41,7 +41,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1727089234967874}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.1064044, y: 0.1794, z: -14.413223}
+  m_LocalPosition: {x: -0.731, y: 0.1794, z: -14.413223}
   m_LocalScale: {x: 0.03, y: 0.02, z: 0.02}
   m_Children: []
   m_Father: {fileID: 0}
@@ -227,8 +227,8 @@ Light:
   serializedVersion: 8
   m_Type: 2
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0.5
-  m_Range: 10
+  m_Intensity: 1
+  m_Range: 1
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
@@ -254,7 +254,7 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!114 &114646884912626058
+--- !u!114 &114431254959142164
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
