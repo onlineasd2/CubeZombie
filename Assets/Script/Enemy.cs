@@ -94,7 +94,7 @@ public class Enemy : MonoBehaviour {
 
                 foreach (Transform child in enemyD.GetComponentInChildren<Transform>())
                 {
-                    float direction = Random.Range(-2.5f, 2.5f);
+                    float direction = Random.Range(-6f, 6f);
                     child.GetComponentInChildren<Rigidbody>().AddForce(new Vector3(direction, direction, direction), ForceMode.Impulse);
                 }
 
