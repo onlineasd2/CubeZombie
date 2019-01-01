@@ -20,7 +20,12 @@ public class PersonController : MonoBehaviour {
     public ParticleSystem sleeve;
     [Space]
 
+    public AudioClip shotSound;
+    public AudioSource audioSource;
+    [Space]
+
     public bool isShot;
+    [Space]
 
     public Light LightFormAmmo;
 
@@ -36,6 +41,8 @@ public class PersonController : MonoBehaviour {
     {
         Instantiate(target, transform.position, Quaternion.identity);
         animator = GetComponent<Animator>();
+
+        audioSource = GetComponent<AudioSource>();
 
         ParticleSleeve(false);
     }
@@ -205,11 +212,19 @@ public class PersonController : MonoBehaviour {
         {
             LightShot(true);
             ParticleSleeve(true);
+            SoundShot();
             isShot = false;
         } else
         {
             LightShot(false);
         }
+    }
+
+    // Звук выстрела
+    void SoundShot ()
+    {
+        audioSource.clip = shotSound;
+        audioSource.Play();
     }
 
     // Вспышка от выстрела

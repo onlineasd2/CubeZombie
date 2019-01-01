@@ -12,20 +12,36 @@ public class Enemy : MonoBehaviour {
     public float delayJump;
     
     public ParticleSystem particle;
+    public ParticleSystem particleExplosion;
     [Space]
 
+    public Light lightExplosion;
+    [Space]
+
+    public GameObject deadEnemy;
+
     public bool isGround;
+
+    public bool isDead = false;
 
     float t = 1;
 
     bool playerIsAlive;
-    
-	void Start () {
+
+    bool once = false;
+
+    void Start () {
         particle.Stop();
     }
 	
 	void Update () {
+        // Отключение взрыва
+        particleExplosion.Stop();
+        lightExplosion.gameObject.SetActive(false);
+        // Отключение взрыва
+
         EnemyControl(delayJump);
+        CheckHP();
         Dead();
     }
 
@@ -50,14 +66,48 @@ public class Enemy : MonoBehaviour {
             GetComponent<Rigidbody>().AddForce((transform.forward + Vector3.up) * forceJump, ForceMode.Impulse);
         }
     }
-
-    // Смерть противника
-    private void Dead ()
+    // Проверка жизней противника
+    private void CheckHP ()
     {
         if (HP <= 0)
         {
-            Debug.Log("Enemy Dead");
+            isDead = true;
+        }
+    }
+
+    // Смерть противника
+    void Dead ()
+    {
+        if (isDead)
+        {
+            if (!once)
+            {
+                once = true;
+
+                Debug.Log("Enemy Dead");
+
+                particleExplosion.Play();
+                lightExplosion.gameObject.SetActive(true);
+
+                // Доделать
+                GameObject enemyD = Instantiate(deadEnemy, transform.position, Quaternion.identity);
+
+                foreach (Transform child in enemyD.GetComponentInChildren<Transform>())
+                {
+                    float direction = Random.Range(-2.5f, 2.5f);
+                    child.GetComponentInChildren<Rigidbody>().AddForce(new Vector3(direction, direction, direction), ForceMode.Impulse);
+                }
+
+                // Доделать
+
+                Destroy(enemyD, 1.5f);
+            }
             Destroy(gameObject);
+        }
+        else
+        {
+            lightExplosion.gameObject.SetActive(false);
+            particleExplosion.Stop();
         }
     }
 
