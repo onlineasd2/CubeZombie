@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PersonController : MonoBehaviour {
     
@@ -36,6 +37,10 @@ public class PersonController : MonoBehaviour {
     public float delayShoting = 0.01f; // Задержка при стрельбе
 
     float t = 0f; // Таймер
+
+    public GameObject ScreenDead;
+
+    public bool isDead = false;
     
     void Start ()
     {
@@ -45,6 +50,10 @@ public class PersonController : MonoBehaviour {
         audioSource = GetComponent<AudioSource>();
 
         ParticleSleeve(false);
+
+        ScreenDead.SetActive(false);
+
+        isDead = false;
     }
 	
 	void Update ()
@@ -52,6 +61,7 @@ public class PersonController : MonoBehaviour {
         DirectionShot();
         ReloadGun();
         CheckIsShot();
+        Dead(isDead);
     }
 
     void ReloadGun() // Перезарядка
@@ -78,7 +88,7 @@ public class PersonController : MonoBehaviour {
 
             DelayShoot(delayShoting);
 
-            Debug.Log(isShot);
+            Debug.Log("isShot = " + isShot);
         }
         else
         {
@@ -170,6 +180,24 @@ public class PersonController : MonoBehaviour {
 
     }
 
+    void Dead(bool isD)
+    {
+        if (isD)
+        {
+            ScreenDead.SetActive(true);
+            gameObject.GetComponent<PersonController>().enabled = false;
+        } else
+        {
+            ScreenDead.SetActive(false);
+            gameObject.GetComponent<PersonController>().enabled = true;
+        }
+    }
+
+    public void ReloadSceen()
+    {
+        Application.LoadLevel(0);
+    }
+
     // Закончить анимацию перезарядки
     void AnimationOver(string nameAnimation)
     {
@@ -237,5 +265,13 @@ public class PersonController : MonoBehaviour {
     void LightFromShoot (bool turn)
     {
         LightFormAmmo.gameObject.SetActive(turn);
+    }
+
+    private void OnCollisionEnter (Collision collision)
+    {
+        if (collision.gameObject.tag == "Enemy")
+        {
+            isDead = true;
+        }
     }
 }

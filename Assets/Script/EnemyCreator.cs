@@ -1,23 +1,49 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyCreator : MonoBehaviour {
 
     public int countEnemy;
     public GameObject [] kindsEnemy;
-    public int Waves;
+    public int waves;
+    public bool creatEnemy = true;
+    public float deleyCreatEnemy = 1f;
+    [Space]
+
+    public Slider sliderDeley;
+    public InputField inputCountEnemy;
+    public InputField inputWave;
+    public Toggle toggleSpawnEnemy;
+    [Space]
+
+    public Toggle ui;
+    public GameObject controllUI;
     
 	void Start () {
     }
 
     void Update ()
     {
-        if (Waves != 0)
+        if (ui.isOn)
+            controllUI.SetActive(true);
+        else
+            controllUI.SetActive(false);
+
+        if ((waves != 0) && (creatEnemy))
         {
-            Invoke("CreateEnemy", 1); //выполняем sec каждые 1 секунд
-            Waves--;
+            Invoke("CreateEnemy", (float)deleyCreatEnemy); //выполняем sec каждые 1 секунд
+            waves--;
         }
+    }
+
+    public void ApplySettings()
+    {
+        waves = int.Parse(inputCountEnemy.text);
+        creatEnemy = sliderDeley;
+        deleyCreatEnemy = sliderDeley.value;
+        countEnemy = int.Parse(inputWave.text);
     }
 
     void CreateEnemy()
